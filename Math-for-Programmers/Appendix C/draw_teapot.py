@@ -11,4 +11,5 @@ if '--snapshot' in sys.argv:
     camera.default_camera = camera.Camera('fig_4.4_draw_teapot',[0])
 ####################################################################
 
-draw_model(load_triangles())
+# draw_model(load_triangles())
+draw_model(load_triangles(), glRotatefArgs=(10,1,1,1))

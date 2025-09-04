@@ -40,12 +40,13 @@ def draw_model(faces, color_map=blues, light=(1,2,3),
     gluPerspective(45, 1, 0.1, 50.0)
 
     glTranslatef(0.0,0.0, -5)
-    if glRotatefArgs:
-        glRotatef(*glRotatefArgs)
+    # if glRotatefArgs:
+    #     glRotatef(*glRotatefArgs)
     glEnable(GL_CULL_FACE)
     glEnable(GL_DEPTH_TEST)
     glCullFace(GL_BACK)
 
+    clock = pygame.time.Clock()
     while cam.is_shooting():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -54,6 +55,13 @@ def draw_model(faces, color_map=blues, light=(1,2,3),
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         Axes()
+
+        if glRotatefArgs:
+            degrees_per_second = glRotatefArgs[0]
+            degrees_per_millisecond = degrees_per_second / 1000
+            milliseconds = clock.tick()
+            glRotatef(milliseconds * degrees_per_millisecond, glRotatefArgs[1], glRotatefArgs[2], glRotatefArgs[3])
+
         glBegin(GL_TRIANGLES)
         def do_matrix_transform(v):
             if get_matrix:
@@ -70,3 +78,5 @@ def draw_model(faces, color_map=blues, light=(1,2,3),
         glEnd()
         cam.tick()
         pygame.display.flip()
+        
+        print(clock.get_fps())
