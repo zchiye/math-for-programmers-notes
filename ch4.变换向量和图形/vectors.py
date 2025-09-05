@@ -16,6 +16,9 @@ def add(*vectors):
 def subtract(v1,v2):
     return tuple(v1-v2 for (v1,v2) in zip(v1,v2))
 
+def equals(v1,v2):
+    return all(abs(coord1-coord2) < 1e-9 for (coord1,coord2) in zip(v1,v2))
+
 def length(v):
     return sqrt(sum([coord ** 2 for coord in v]))
 
